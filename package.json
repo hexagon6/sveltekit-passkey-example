@@ -30,6 +30,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@simplewebauthn/server": "^8.0.0-alpha.0"
+    "@ownid/webauthn": "^1.0.0",
+    "@simplewebauthn/server": "^8.3.6"
   }
 }
