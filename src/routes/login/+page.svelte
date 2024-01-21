@@ -1,71 +1,76 @@
 <script>
+  import { fido2Get } from '@ownid/webauthn'
   // FROM: https://www.passkeys.com/guides
-  import { fido2Create } from '@ownid/webauthn'
 
-  $: registerStartResponse = undefined
-  $: fido2CreateResult = undefined
-  $: registerFinishResponse = undefined
+  $: loginStartResponse = undefined
+  $: fido2GetResult = undefined
+  $: loginFinishResponse = undefined
   $: progress = 0
-  $: registered = false
+  $: showRegisterLink = false
 
-  const register = async () => {
+  // call /login/start to verify public key
+  const login = async () => {
     progress = 0
-    console.log('getting public key for user', username)
-    await fetch('/register/start', {
+    await fetch('/login/start', {
       method: 'post',
       body: JSON.stringify({ username }),
     })
       .then(async (res) => res.json())
       .then(async (res) => {
         progress = 1
+        loginStartResponse = res
         if (res.message) {
-          // FIXME: if we have an error on registration show it to the user
           console.error(res.message)
-          registerStartResponse = res.message
+          showRegisterLink = true
           return
         }
-        registerStartResponse = res
-        const { challenge } = res
-        const data = await fido2Create(res, username).catch(console.error)
         progress = 2
-        fido2CreateResult = data
+        const { challenge } = res
+        console.log(res)
+        const data = await fido2Get(res, username)
+        console.log(data)
+        fido2GetResult = data
 
         if (!data) {
-          console.error('no data from fido2Create.. something went wrong?')
+          console.error('no data from fido2Get.. something went wrong?')
           return
         }
         progress = 3
         const finishBody = JSON.stringify({ ...data, challenge })
-        await fetch('/register/finish', {
+        await fetch('/login/finish', {
           method: 'post',
           body: finishBody,
         })
           .then((res) => res.json())
           .then((res) => {
             progress = 4
+            loginFinishResponse = res
             if (res.message) {
               console.error(res.message)
-              registerFinishResponse = res.message
+              loginFinishResponse = res.message
               return
             }
             progress = 5
             if (res) {
-              registerFinishResponse = res
+              loginFinishResponse = res
               progress = 6
-              registered = true
+              loggedInAs = res.user
+              alert(
+                `Successfully authenticated as ${loggedInAs} using webAuthn`,
+              )
             }
           })
           .catch(console.error)
       })
-      .catch(() => console.error)
   }
 
   let username = ''
+  let loggedInAs = ''
 </script>
 
 <header />
 <main>
-  <h2>User Registration with passkey</h2>
+  <h2>User Login with passkey</h2>
   <form>
     <label for="username">Username:</label>
     <input
@@ -75,11 +80,20 @@
       bind:value={username}
       autocomplete="username webauthn"
     />
-    <button on:click={register}>register</button>
+    <button on:click={login}>login</button>
   </form>
+  {#if showRegisterLink}
+    <p>
+      <strong>{username}</strong> is not registered here
+    </p>
+    <a href="/register">Please register a User</a>
+  {/if}
+  {#if loggedInAs}
+    <p>Logged in as {loggedInAs}</p>
+  {/if}
   <hr />
   <aside>
-    <label for="progress">Registration Progress:</label>
+    <label for="progress">Login Progress:</label>
     <meter
       id="progress"
       min="0"
@@ -90,14 +104,8 @@
       value={progress}>at {progress}/6</meter
     >
   </aside>
-  {#if registered}
-    <div>
-      <p>Successfully created using webAuthn</p>
-      <p>please log in <a href="/login">here</a></p>
-    </div>
-  {/if}
   <div>
-    {#each [['/register/start response:', registerStartResponse], ['fido2Create Result:', fido2CreateResult], ['/register/finish response:', registerFinishResponse]] as [heading, content]}
+    {#each [['/finish/start response:', loginFinishResponse], ['fido2Get Result:', fido2GetResult], ['/login/finish response:', loginFinishResponse]] as [heading, content]}
       <h3>{heading}</h3>
       <section>
         <textarea>{JSON.stringify(content, null, 2)}</textarea>

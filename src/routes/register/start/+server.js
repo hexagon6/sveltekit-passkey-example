@@ -30,6 +30,7 @@ export async function POST(event) {
     userName: username,
     authenticatorSelection: {
       authenticatorAttachment: 'cross-platform', // 'platform',
+      // https://passkeys.dev/docs/use-cases/bootstrapping/#a-note-about-user-verification
       userVerification: 'preferred', // 'required',
       residentKey: 'required', // 'preferred',
       requireResidentKey: false,
