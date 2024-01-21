@@ -25,3 +25,8 @@ Thanks to
 - https://simplewebauthn.dev/
 
 it is possible to do passwordless login with the code provided here.
+
+## TODO:
+
+1. use environment variables for deployment under non-development environments (make rpId & expectedOrigin parameters configurable).
+2. add sveltekit-node-adapter
