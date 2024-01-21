@@ -1,4 +1,5 @@
-<h1>Welcome to SvelteKit</h1>
+<h1>Welcome to SvelteKit webauthn demo</h1>
 <p>
-  Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
+  <a href="/register">Register</a>
+  <a href="/login">Login</a>
 </p>
