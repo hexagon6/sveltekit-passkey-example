@@ -1,9 +1,7 @@
 import { error, json } from '@sveltejs/kit'
 import { getNewChallenge, convertChallenge } from '$lib/utils.js'
 import { generateRegistrationOptions } from '@simplewebauthn/server'
-
-// FIXME: make it able to deploy to production, use env vars for rpId
-const rpId = 'localhost'
+import { rpId } from '$lib/config.js'
 
 /**
  * @param {any} event

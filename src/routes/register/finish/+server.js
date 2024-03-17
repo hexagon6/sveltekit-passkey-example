@@ -1,9 +1,7 @@
 import { error } from '@sveltejs/kit'
 import { verifyRegistrationResponse } from '@simplewebauthn/server'
 import { getRegistrationInfo } from '$lib/utils.js'
-
-// FIXME: configure expectedOrigin with env vars for production deployment
-const expectedOrigin = 'http://localhost:5173'
+import { expectedOrigin } from '$lib/config.js'
 
 /**
  * @param {any} event

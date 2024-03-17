@@ -4,6 +4,26 @@
 
 This repository demonstrates usage and implementation of [passkeys](https://passkeys.dev/) with [sveltekit](DEVELOP.md)
 
+## setup
+
+Copy the file `.env.example` to `.env` and fill in your values for the empty variables.
+
+### environment variables for development:
+
+e.g.
+```.env
+ORIGIN=localhost
+EXPECTED_ORIGIN=http://localhost:5173
+```
+
+### environment variables for production:
+
+e.g.
+```.env
+ORIGIN=mydomain.org
+EXPECTED_ORIGIN=https://auth.mydomain.org
+```
+
 ## scope
 
 experimentation, prototyping, not meant (yet!) for production usage
@@ -28,5 +48,5 @@ it is possible to do passwordless login with the code provided here.
 
 ## TODO:
 
-1. use environment variables for deployment under non-development environments (make rpId & expectedOrigin parameters configurable).
-2. add sveltekit-node-adapter
+1. add sveltekit-node-adapter
+

@@ -1,9 +1,7 @@
 import { error, json } from '@sveltejs/kit'
 import { verifyAuthenticationResponse } from '@simplewebauthn/server'
 import { getSavedAuthenticatorData } from '$lib/utils.js'
-
-const rpId = 'localhost'
-const expectedOrigin = 'http://localhost:5173'
+import { expectedOrigin, rpId } from '$lib/config.js'
 
 /**
  * @param {{ request: Request; locals: { db: any; }; }} event
