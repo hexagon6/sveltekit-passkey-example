@@ -11,6 +11,7 @@ Copy the file `.env.example` to `.env` and fill in your values for the empty var
 ### environment variables for development:
 
 e.g.
+
 ```.env
 ORIGIN=localhost
 EXPECTED_ORIGIN=http://localhost:5173
@@ -19,8 +20,9 @@ EXPECTED_ORIGIN=http://localhost:5173
 ### environment variables for production:
 
 e.g.
+
 ```.env
-ORIGIN=mydomain.org
+ORIGIN=auth.mydomain.org
 EXPECTED_ORIGIN=https://auth.mydomain.org
 ```
 
@@ -49,4 +51,3 @@ it is possible to do passwordless login with the code provided here.
 ## TODO:
 
 1. add sveltekit-node-adapter
-
