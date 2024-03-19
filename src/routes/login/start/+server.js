@@ -1,7 +1,6 @@
 import { convertChallenge, getNewChallenge } from '$lib/utils'
 import { error, json } from '@sveltejs/kit'
-
-const rpId = 'localhost'
+import { rpId } from '$lib/config.js'
 
 /**
  * @param {any} event
