@@ -3,6 +3,7 @@
   // FROM: https://www.passkeys.com/guides
 
   $: loginStartResponse = undefined
+  /** @type {import('@ownid/webauthn').IWebAuthnLoginRequest | undefined} **/
   $: fido2GetResult = undefined
   $: loginFinishResponse = undefined
   $: progress = 0
