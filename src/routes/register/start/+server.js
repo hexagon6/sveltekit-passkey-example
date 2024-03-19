@@ -13,10 +13,10 @@ export async function POST(event) {
   } = event
   const { username } = await request.json()
   if (!username) {
-    throw error(500, 'No username provided')
+    error(500, 'No username provided')
   }
   if (db.challenges.has(username)) {
-    throw error(409, `User "${username}" already exists`)
+    error(409, `User "${username}" already exists`)
   }
 
   const challenge = getNewChallenge()

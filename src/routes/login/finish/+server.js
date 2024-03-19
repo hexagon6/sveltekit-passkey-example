@@ -13,11 +13,11 @@ export async function POST(event) {
   } = event
   const { username, data, challenge } = await request.json()
   if (!username) {
-    throw error(500, 'No username provided')
+    error(500, 'No username provided')
   }
   console.log(db.users)
   if (!db.users.has(username)) {
-    throw error(404, 'Not Found')
+    error(404, 'Not Found')
   }
 
   let verification = { verified: false }
@@ -34,12 +34,12 @@ export async function POST(event) {
     })
   } catch (err) {
     console.error(err)
-    throw error(400, err.message)
+    error(400, err.message)
   }
 
   const { verified } = verification
   if (verified) {
     return json({ ok: true, user: username })
   }
-  throw error(400)
+  error(400)
 }

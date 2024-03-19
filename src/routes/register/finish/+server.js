@@ -22,7 +22,7 @@ export async function POST(event) {
     })
   } catch (err) {
     console.error(err)
-    throw error(400, `${err.message}`)
+    error(400, `${err.message}`)
   }
   const { verified, registrationInfo } = verification
   if (verified) {
@@ -33,5 +33,5 @@ export async function POST(event) {
     // send http 200
     return new Response(JSON.stringify({ ok: true, user: username }))
   }
-  throw error(500)
+  error(500)
 }

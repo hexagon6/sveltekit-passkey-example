@@ -13,11 +13,11 @@ export async function POST(event) {
   } = event
   const { username } = await request.json()
   if (!username) {
-    throw error(500, 'No username provided')
+    error(500, 'No username provided')
   }
   console.log(db.users)
   if (!db.users.has(username)) {
-    throw error(404, 'Not Found')
+    error(404, 'Not Found')
   }
 
   const challenge = getNewChallenge()
