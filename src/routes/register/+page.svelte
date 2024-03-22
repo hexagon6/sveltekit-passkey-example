@@ -1,6 +1,6 @@
 <script>
   // FROM: https://www.passkeys.com/guides
-  import { fido2Create } from '@ownid/webauthn'
+  import { fido2Create } from '$lib/fido2.js'
 
   $: registerStartResponse = undefined
   $: fido2CreateResult = undefined

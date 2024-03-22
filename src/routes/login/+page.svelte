@@ -1,5 +1,5 @@
 <script>
-  import { fido2Get } from '@ownid/webauthn'
+  import { fido2Get } from '$lib/fido2.js'
   // FROM: https://www.passkeys.com/guides
 
   $: loginStartResponse = undefined
