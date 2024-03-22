@@ -47,7 +47,3 @@ Thanks to
 - https://simplewebauthn.dev/
 
 it is possible to do passwordless login with the code provided here.
-
-## TODO:
-
-1. add sveltekit-node-adapter
